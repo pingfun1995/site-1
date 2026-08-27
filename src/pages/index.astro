@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+
+const articles = (await getCollection("articles")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Site 1</title>
+  </head>
+  <body>
+    <h1>Site 1</h1>
+    <ul>
+      {articles.map((article) => (
+        <li>
+          <a href={`/site-1/${article.slug}/`}>{article.data.title}</a>
+          <p>{article.data.description}</p>
+        </li>
+      ))}
+    </ul>
+  </body>
+</html>
